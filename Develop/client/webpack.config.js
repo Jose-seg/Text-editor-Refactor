@@ -3,9 +3,6 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
-// TODO: Add and configure workbox plugins for a service worker and manifest file.
-// TODO: Add CSS loaders and babel to webpack.
-
 module.exports = () => {
   return {
     mode: 'development',
@@ -20,12 +17,11 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'J.A.T.E' // configuration for the plugin
+        title: 'J.A.T.E' // HTML plugins
       }),
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'src-sw.js', // building out a json object that can be used when you try to install a
-                             // local application in your machine
+        swDest: 'src-sw.js',
       }),
       new WebpackPwaManifest({
         fingerprints: false,
@@ -36,8 +32,7 @@ module.exports = () => {
         background_color: '#225ca3',
         theme_color: '#225ca3',
         start_url: '/',
-        publicPath: '/',  // building out a json object that can be used when you try to install a
-                          // local application in your machine
+        publicPath: '/',
         icons: [
           {
             src: path.resolve('src/images/logo.png'),
@@ -49,7 +44,7 @@ module.exports = () => {
     ],
 
     module: {
-      rules: [
+      rules: [ // rules for css
         {
           test: /\.css$/i,
           use: ['style-loader', 'css-loader'],
@@ -62,7 +57,7 @@ module.exports = () => {
             options: {
               presets: ['@babel/preset-env'],
               plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
-            },// our rules for our css
+            },
           },
         },
       ],
